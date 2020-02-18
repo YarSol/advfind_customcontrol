@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="ETI" constructor="SearchEngineForm" version="1.0.1" display-name-key="Search Engine Form" description-key="SearchEngineForm" control-type="standard">
+  <control namespace="ETI" constructor="SearchEngineForm" version="1.0.3" display-name-key="Search Engine Form" description-key="SearchEngineForm" control-type="standard">
     <property name="boundFieldValue" display-name-key="boundFieldValue" description-key="boundFieldValue" of-type="SingleLine.Text" usage="bound" required="true"/>
     <resources>
       <code path="index.ts" order="1"/>

@@ -24,6 +24,9 @@ const theme = getTheme();
 const DEVICE_HISTORY_STATUS_PENDING_INSTALL: number = 1;
 const DEVICE_HISTORY_STATUS_INSTALLED: number = 964820000;
 
+const DEVICE_HISTORY_STATUS_INACTIVE: number = 1;
+const DEVICE_HISTORY_STATUS_ACTIVE: number = 0;
+
 const DEVICE_STATUS_LOST: number = 964820008;
 const DEVICE_STATUS_REPAIR: number = 964820009;
 const DEVICE_STATUS_DAMAGED: number = 964820005;
@@ -176,7 +179,7 @@ export class SearchEngineFormComponent extends React.Component<IPCFContextProps,
         };
     }
 
-    private performSelect() {
+    private performSelect() {        
         var selectedItems: IDetailsListBasicExampleItem[] = this._selection.getSelection() as IDetailsListBasicExampleItem[];
 
         if (selectedItems.length > 0) {
@@ -309,7 +312,7 @@ export class SearchEngineFormComponent extends React.Component<IPCFContextProps,
 
         resultFetch = `<fetch page="1" mapping='logical'><entity name="msdyn_iotdevice" ><attribute name="msdyn_deviceid" /><attribute name="eti_place" /><attribute name="msdyn_iotdeviceid" /><attribute name="statuscode" /><attribute name="eti_unitaddress" /><attribute name="eti_devicemodel" /><attribute name="msdyn_category" /><filter type="and" >`
             + (device_conditions.length > 0 ? device_conditions.join(" ") : `<condition attribute="statecode" operator="eq" value="0" />`)
-            + `</filter><link-entity name="eti_devicelocationhistory" from="eti_device" to="msdyn_iotdeviceid" link-type="outer" alias="lochist" ><attribute name="statuscode" alias="device_history_status" /><filter type="or" ><condition attribute="statuscode" operator="eq" value="` + DEVICE_HISTORY_STATUS_INSTALLED + `" /><condition attribute="statuscode" operator="eq" value="` + DEVICE_HISTORY_STATUS_PENDING_INSTALL + `" /></filter><link-entity name="eti_place" from="eti_placeid" to="eti_location" link-type="outer" ><attribute name="eti_serviceaddress" alias="pending_address" /></link-entity></link-entity><link-entity name="eti_place" from="eti_placeid" to="eti_place" link-type="outer" ><attribute name="eti_headend" /><attribute name="eti_serviceaddress" /></link-entity>`
+            + `</filter><link-entity name="eti_devicelocationhistory" from="eti_device" to="msdyn_iotdeviceid" link-type="outer" alias="lochist" ><attribute name="statuscode" alias="device_history_status" /><filter type="and" ><condition attribute="statecode" operator="eq" value="` + DEVICE_HISTORY_STATUS_ACTIVE + `" /><filter type="or" ><condition attribute="statuscode" operator="eq" value="` + DEVICE_HISTORY_STATUS_INSTALLED + `" /><condition attribute="statuscode" operator="eq" value="` + DEVICE_HISTORY_STATUS_PENDING_INSTALL + `" /></filter></filter><link-entity name="eti_place" from="eti_placeid" to="eti_location" link-type="outer" ><attribute name="eti_serviceaddress" alias="pending_address" /></link-entity></link-entity><link-entity name="eti_place" from="eti_placeid" to="eti_place" link-type="outer" ><attribute name="eti_headend" /><attribute name="eti_serviceaddress" /></link-entity>`
             + (device_serviceLocation_fetchXml == "" ? `` : device_serviceLocation_fetchXml)
             + `</entity></fetch>`;
 
