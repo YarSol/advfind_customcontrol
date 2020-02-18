@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="ETI" constructor="SearchEngineForm" version="1.0.1" display-name-key="Search Engine Form" description-key="SearchEngineForm" control-type="standard">
+    <property name="boundFieldValue" display-name-key="boundFieldValue" description-key="boundFieldValue" of-type="SingleLine.Text" usage="bound" required="true"/>
+    <resources>
+      <code path="index.ts" order="1"/>
+      <css path="css/st.css" order="1" />
+    </resources>
+    <feature-usage>
+			<uses-feature name="WebAPI" required="true" />
+		</feature-usage>
+  </control>
+</manifest>
